@@ -1,7 +1,7 @@
-#Kaitan Operasi Matriks dengan Graf
 import numpy as np
 A = np.array([[1,2], [3,4]])
 
 #Untuk adjacency matrix A, degree node dapat dihitung dengan:
 degree = np.sum(A > 0, axis=1)
+
 print(degree)
