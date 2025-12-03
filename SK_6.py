@@ -1,0 +1,48 @@
+import numpy as np
+
+graph = {
+    'SEMBALUN': {'SENARU': 8, 'SESAOT': 4},
+    'SENARU':   {'SEMBALUN': 8, 'BAYAN': 5, 'SURANADI': 7},
+    'BAYAN':    {'SENARU': 5},
+    'SESAOT':   {'SEMBALUN': 4, 'SURANADI': 3},
+    'SURANADI': {'SENARU': 7, 'SESAOT': 3}
+}
+
+nodes = ['SEMBALUN', 'SENARU', 'BAYAN', 'SESAOT', 'SURANADI']
+
+print("\nPENCARIAN LINTASAN")
+start = input("Masukkan tempat start : ")
+goal = input("Masukkan tempat goal : ")
+
+path = None
+total_distance = None
+
+if start in graph and goal in graph:
+    visited = {start}
+    current = start
+    total_distance = 0
+    path = [start]
+
+    while current != goal:
+        neighbors = []
+        for node, weight in graph[current].items():
+            if node not in visited:
+                neighbors.append((node, weight))
+
+        if not neighbors:
+            path = None  
+            total_distance = None
+            break        
+
+        next_node, weight = min(neighbors, key=lambda x: x[1])
+        
+        total_distance += weight
+        path.append(next_node)
+        visited.add(next_node)
+        current = next_node
+
+if path is None:
+    print(f"\nTidak ada lintasan dari {start} ke {goal}")
+else:
+    print(f"\nLintasan terpendek (greedy): {' -> '.join(path)}")
+  

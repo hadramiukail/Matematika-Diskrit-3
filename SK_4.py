@@ -1,0 +1,47 @@
+#Greedy dengan Input Dinamis
+import numpy as np
+
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+start = input("Masukkan nama node awal: ")
+goal = input("Masukkan nama node tujuan: ")
+
+path = None
+total_distance = None
+
+if start in graph and goal in graph:
+    
+    visited = {start}
+    current = start
+    total_distance = 0
+    path = [start]
+
+    while current != goal:
+        neighbors = []
+        for node, weight in graph[current].items():
+            if node not in visited:
+                neighbors.append((node, weight))
+
+        if not neighbors:
+            path = None  
+            total_distance = None
+            break        
+
+        next_node, weight = min(neighbors, key=lambda x: x[1])
+
+        total_distance += weight
+        path.append(next_node)
+        visited.add(next_node)
+        current = next_node
+
+if path is None:
+    print("Tidak ada lintasan dari", start, "ke", goal)
+else:
+    print("Lintasan terpendek (greedy):", " -> ".join(path))
+    print("Total jarak:", total_distance)
+
