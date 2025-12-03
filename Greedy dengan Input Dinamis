@@ -1,4 +1,4 @@
-#Greedy dengan Input Dinamis
+
 import numpy as np
 
 graph = {
@@ -44,4 +44,5 @@ if path is None:
 else:
     print("Lintasan terpendek (greedy):", " -> ".join(path))
     print("Total jarak:", total_distance)
+
 
